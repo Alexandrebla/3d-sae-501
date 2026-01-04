@@ -1,4 +1,4 @@
-import "../../style/Menu.css";
+import "../../style/menu.css";
 import { ModelData } from "../../data/ModelData";
 import { ModelDataVisi } from "../../data/ModelDataVisi"; // <-- ajouter cet import
 
@@ -91,3 +91,4 @@ export default function Menu({
     </div>
   );
 }
+
