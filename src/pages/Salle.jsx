@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import * as THREE from "three";
 import Menu from "../components/ui/Menu";
 import Salle3D from "../components/three/Salle3D";
-import "../style/Salle.css";
+import "../style/salle.css";
 import { ModelData } from "../data/ModelData"; // pour le menu/zoom
 import { ModelDataVisi } from "../data/ModelDataVisi"; // pour la visibilité
 
@@ -168,3 +168,4 @@ const [visibleElements, setVisibleElements] = useState(initialVisibility);
     </div>
   );
 }
+
