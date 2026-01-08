@@ -11,6 +11,10 @@ export default function Salle() {
   const [menuOpen, setMenuOpen] = useState(true);
   const [backfaceCulling, setBackfaceCulling] = useState(true);
   const [backgroundColor, setBackgroundColor] = useState("#cccccc");
+  const [backgroundMode, setBackgroundMode] = useState("color"); // "color" | "hdr"
+  const [selectedHDR, setSelectedHDR] = useState("sky");
+
+
 
   // Visibilité des éléments
   // créer l’état initial en inversant la logique de masquage
@@ -82,6 +86,10 @@ const [visibleElements, setVisibleElements] = useState(initialVisibility);
         setBackfaceCulling={setBackfaceCulling}
         backgroundColor={backgroundColor}
         setBackgroundColor={setBackgroundColor}
+        backgroundMode={backgroundMode}
+        setBackgroundMode={setBackgroundMode}
+        selectedHDR={selectedHDR}
+        setSelectedHDR={setSelectedHDR}
         visibleElements={visibleElements}
         setVisibleElements={setVisibleElements}
         onSelectObject={(objectName) => setZoomTarget(objectName)}
@@ -135,6 +143,8 @@ const [visibleElements, setVisibleElements] = useState(initialVisibility);
     <div className="absolute inset-0">
       <Salle3D
         backgroundColor={backgroundColor}
+        backgroundMode={backgroundMode}
+        selectedHDR={selectedHDR}
         backfaceCulling={backfaceCulling}
         visibleElements={visibleElements}
         controlsRef={controlsRef}
@@ -167,7 +177,7 @@ const [visibleElements, setVisibleElements] = useState(initialVisibility);
                 <li>Q / A : Gauche</li>
                 <li>D : Droite</li>
                 <li>Espace : Monter</li>
-                <li>Shift : Descendre</li>
+                <li>C : Descendre</li>
               </ul>
             </div>
 
@@ -176,6 +186,7 @@ const [visibleElements, setVisibleElements] = useState(initialVisibility);
               <ul className="list-none pl-0">
                 <li>Clic gauche : Rotation</li>
                 <li>Clic droit : Déplacement</li>
+                <li>Shift + clic droit : Déplacement libre</li>
                 <li>Molette : Zoom</li>
               </ul>
             </div>
