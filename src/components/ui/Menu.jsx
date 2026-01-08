@@ -1,13 +1,27 @@
 import { ModelData } from "../../data/ModelData";
-import { ModelDataVisi } from "../../data/ModelDataVisi";export default function Menu({
+import { ModelDataVisi } from "../../data/ModelDataVisi";
+
+export default function Menu({
   backfaceCulling,
   setBackfaceCulling,
   backgroundColor,
   setBackgroundColor,
+  backgroundMode,
+  setBackgroundMode,
+  selectedHDR,
+  setSelectedHDR,
   visibleElements,
   setVisibleElements,
   onSelectObject,
 }) {
+
+  const HDR_PRESETS = [
+  { id: "sky", label: "🌤️ Ciel", file: "citrus_orchard_road_puresky_1k.hdr" },
+  { id: "city", label: "🏙️ Ville", file: "quattro_canti_1k.hdr" },
+  { id: "studio", label: "🎥 Studio", file: "studio.hdr" },
+  { id: "interior", label: "🏠 Intérieur", file: "university_workshop_1k.hdr" },
+];
+
   return (
     <div className="h-screen w-[300px] bg-indigo-600 text-white flex flex-col p-4">
       
@@ -31,16 +45,73 @@ import { ModelDataVisi } from "../../data/ModelDataVisi";export default function
           <span>Mur Invisible</span>
         </label>
 
-        {/* Couleur fond */}
-        <div className="flex items-center gap-2">
-          <label className="text-sm">Couleur du fond :</label>
+       {/* Background */}
+      <div className="space-y-2">
+        <p className="text-sm font-semibold">Fond de la scène</p>
+
+        {/* Mode */}
+        <div className="flex gap-2">
+          <button
+            onClick={() => setBackgroundMode("color")}
+            className={`
+              flex-1 px-2 py-1 rounded text-sm border
+              ${
+                backgroundMode === "color"
+                  ? "bg-white text-indigo-600 border-white"
+                  : "bg-indigo-700 text-white border-white/40 hover:bg-indigo-800"
+              }
+            `}
+          >
+            🎨 Couleur
+          </button>
+
+          <button
+            onClick={() => setBackgroundMode("hdr")}
+            className={`
+              flex-1 px-2 py-1 rounded text-sm border
+              ${
+                backgroundMode === "hdr"
+                  ? "bg-white text-indigo-600 border-white"
+                  : "bg-indigo-700 text-white border-white/40 hover:bg-indigo-800"
+              }
+            `}
+          >
+            🌅 HDR
+          </button>
+        </div>
+
+        {/* Color picker */}
+        {backgroundMode === "color" && (
           <input
             type="color"
             value={backgroundColor}
             onChange={(e) => setBackgroundColor(e.target.value)}
-            className="w-10 h-8 rounded cursor-pointer"
+            className="w-full h-8 rounded cursor-pointer"
           />
-        </div>
+        )}
+
+        {/* HDR presets */}
+        {backgroundMode === "hdr" && (
+          <div className="grid grid-cols-2 gap-2 mt-2">
+            {HDR_PRESETS.map((hdr) => (
+              <button
+                key={hdr.id}
+                onClick={() => setSelectedHDR(hdr.id)}
+                className={`
+                  px-2 py-1 text-xs rounded border
+                  ${
+                    selectedHDR === hdr.id
+                      ? "bg-white text-indigo-600 border-white"
+                      : "bg-indigo-700 text-white border-white/40 hover:bg-indigo-800"
+                  }
+                `}
+              >
+                {hdr.label}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
 
 
         {/* Visibilité */}
