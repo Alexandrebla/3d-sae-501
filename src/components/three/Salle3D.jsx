@@ -10,7 +10,7 @@ import Listener from "./Listener";
 
 const MODEL_URL = "https://pub-1a75df19d308437a91016802c6a3adef.r2.dev/Salle-draco.glb";
 
-const ClassroomModel = ({ backfaceCulling, visibleElements, onLoaded }) => {
+const ClassroomModel = ({ backfaceCulling, onLoaded }) => {
   const { scene } = useGLTF(MODEL_URL);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const ClassroomModel = ({ backfaceCulling, visibleElements, onLoaded }) => {
 };
 
 const Salle3D = forwardRef(
-  ({ backfaceCulling, backgroundColor, envMapUrl, controlsRef, visibleElements, zoomTarget }, ref) => {
+  ({ backfaceCulling, backgroundColor, backgroundMode, selectedHDR, controlsRef, visibleElements, zoomTarget }, ref) => {
     const { scene, camera } = useThree();
     const modelRef = useRef();
 
@@ -82,7 +82,12 @@ const Salle3D = forwardRef(
 
     return (
       <>
-        <BackgroundController color={backgroundColor} envMapUrl={envMapUrl} />
+        <BackgroundController
+  color={backgroundColor}
+  backgroundMode={backgroundMode}
+  selectedHDR={selectedHDR}
+/>
+
         <ambientLight intensity={0.6} />
         <directionalLight position={[5, 10, 5]} intensity={1} />
         <OrbitControls ref={controlsRef} enableDamping dampingFactor={0.05} />
